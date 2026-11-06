@@ -1,0 +1,60 @@
+﻿syntax = "proto3";
+option csharp_namespace = "Yaskawa.ControllerEngineeringService.Variable.V1";
+package Yaskawa.ControllerEngineeringService.Variable.V1;
+
+
+//
+//変数サービスRPC
+//
+service VariableGrpcService
+{
+	//エンジニアリング開始
+	rpc StartEngineering(StartEngineeringReq)
+		returns(StartEngineeringRes);
+
+	//エンジニアリング終了
+	rpc EndEngineering(EndEngineeringReq)
+		returns(EndEngineeringRes);
+
+	//シンボル検索
+	rpc FindSymbolRegister(FindSymbolRegisterReq)
+		returns(FindSymbolRegisterRes);
+}
+
+//
+//メッセージ定義
+//
+
+//エンジニアリング開始
+message StartEngineeringReq
+{
+	string sessionHandle = 1;		//セッションハンドル
+}
+message StartEngineeringRes
+{
+	string engineeringHandle = 1;	//エンジニアリングハンドル
+}
+
+//エンジニアリング終了
+message EndEngineeringReq
+{
+	string engineeringHandle = 1;	//エンジニアリングハンドル
+}
+message EndEngineeringRes
+{
+}
+
+//FindSymbolRegister
+message FindSymbolRegisterReq
+{
+	string engineeringHandle = 1;	//エンジニアリングハンドル
+	bool isSymbol = 2;				//シンボル検索か？ true=FindSymbol false=FindRegister
+	bool isGlobal = 3;				//グローバルシンボルか？　true=グローバルシンボル　false=ローカルシンボル
+	string findText = 4;			//検索対象文字列
+	string progName = 5;			//プログラム名（ローカル検索時に必要）
+}
+message FindSymbolRegisterRes
+{
+	string findResult = 1;	//FindSymbol/FindRegisterの実行結果
+}
+

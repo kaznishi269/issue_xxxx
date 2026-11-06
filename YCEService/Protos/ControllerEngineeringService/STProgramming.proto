@@ -1,0 +1,101 @@
+﻿syntax = "proto3";
+option csharp_namespace = "Yaskawa.ControllerEngineeringService.STProgramming.V1";
+package Yaskawa.ControllerEngineeringService.STProgramming.V1;
+
+
+//
+//STプログラミングサービスRPC
+//
+service STProgrammingGrpcService
+{
+	//エンジニアリング開始
+	rpc StartEngineering(StartEngineeringReq)
+		returns(StartEngineeringRes);
+
+	//エンジニアリング終了
+	rpc EndEngineering(EndEngineeringReq)
+		returns(EndEngineeringRes);
+
+	//プログラムの読み込み
+	rpc Read(ReadReq)
+		returns(ReadRes);
+
+	//コンパイル
+	rpc Compile(CompileReq)
+		returns(CompileRes);
+
+	//以降は、動作検証用
+	//プログラムプロパティ取得（とりあえず、プログラム名称のみ）
+	rpc LadderProgGetProperty(LadderProgGetPropertyReq)
+		returns(LadderProgGetPropertyRes);
+
+	//双方向ストリーミングの確認
+	rpc Chat(stream ChatMessage)
+		returns(stream ChatMessage);
+}
+
+//
+//メッセージ定義
+//
+
+//エンジニアリング開始
+message StartEngineeringReq
+{
+	string sessionHandle = 1;		//セッションハンドル
+	bool isOnline = 2;				//オンライン情報　true=オンライン false=オフライン
+	int32 motionFactoryId = 3;		//モーションファクトリID
+	string prgFile = 4;				//プログラム名
+}
+message StartEngineeringRes
+{
+	string engineeringHandle = 1;	//エンジニアリングハンドル
+}
+
+//エンジニアリング終了
+message EndEngineeringReq
+{
+	string engineeringHandle = 1;	//エンジニアリングハンドル
+}
+message EndEngineeringRes
+{
+}
+
+//プログラムの読み込み
+message ReadReq
+{
+	string engineeringHandle = 1;	//エンジニアリングハンドル
+}
+message ReadRes
+{
+	string programText = 1;			//プログラム(テキストデータ)
+}
+
+//コンパイル
+message CompileReq
+{
+	string engineeringHandle = 1;	//エンジニアリングハンドル
+	string programText = 2;			//プログラム(テキストデータ)
+}
+message CompileRes
+{
+
+}
+
+
+//以降は、動作検証用
+//プログラムのプロパティ取得(お試しでプログラムコメントのみ)
+message LadderProgGetPropertyReq
+{
+	string engineeringHandle = 1;	//エンジニアリングハンドル
+}
+message LadderProgGetPropertyRes
+{
+	string programComment = 1;		//プログラムコメント
+}
+
+//試験実装(双方向ストリーム)
+message ChatMessage
+{
+	string user = 1;
+	string text = 2;
+}

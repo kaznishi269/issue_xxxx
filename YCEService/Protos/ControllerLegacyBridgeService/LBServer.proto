@@ -1,0 +1,41 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Yaskawa.ControllerLegacyBridgeService.Server.V1";
+
+package Yaskawa.ControllerLegacyBridgeService.Server.V1;
+
+//
+//サーバーサービスRPC
+//
+service LBServerGrpcService
+{
+	//バージョン情報
+	rpc GetVersion(LBGetVersonReq)
+		returns(LBGetVersionRes);
+
+	//クライアント生存確認
+	rpc Heartbeat(HeartbeatReq)
+		returns(HeartbeatRes);
+}
+
+//
+//メッセージ定義
+//
+
+//バージョン情報Request/Response
+message	LBGetVersonReq
+{
+}
+message LBGetVersionRes
+{
+	string version=1;	//バージョン情報
+}
+
+//クライアント生存確認
+message HeartbeatReq
+{
+}
+
+message HeartbeatRes
+{
+}

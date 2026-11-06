@@ -1,0 +1,65 @@
+﻿syntax = "proto3";
+option csharp_namespace = "Yaskawa.ControllerEngineeringService.NativeEnginnering.V1";
+package Yaskawa.ControllerEngineeringService.NativeEnginnering.V1;
+
+
+//
+//ネイティブエンジニアリングサービスRPC
+//
+service NativeEngineeringGrpcService
+{
+	//エンジニアリング開始
+	rpc StartEngineering(StartEngineeringReq)
+		returns(StartEngineeringRes);
+
+	//エンジニアリング終了
+	rpc EndEngineering(EndEngineeringReq)
+		returns(EndEngineeringRes);
+
+	//レジスタ読み込み（とりあえず１レジスタ)
+	rpc RegRead(RegReadReq)
+		returns(RegReadRes);
+}
+
+//
+//メッセージ定義
+//
+
+//エンジニアリング開始
+//※このサービルは、初版の開発で必要なのか？必要であれば、
+//通信プラットフォームのポートオープンに必要なパラメータが全て必要である。
+message StartEngineeringReq
+{
+	string sessionHandle = 1;	//セッションハンドル
+	bool isOnline = 2;			//オンライン情報 true=オンライン false=オフライン
+	int32 portNo = 3;			//論理ポート番号(1始まり)
+	string ipAddress = 4;		//IPアドレス
+}
+
+message StartEngineeringRes
+{
+	string engineeringHandle = 1;	//エンジニアリングハンドル
+}
+
+//エンジニアリング終了
+message EndEngineeringReq
+{
+	string engineeringHandle = 1;	//エンジニアリングハンドル
+}
+
+message EndEngineeringRes
+{
+}
+
+//お試し実装。。。
+message RegReadReq
+{
+	string engineeringHandle = 1;
+	string registar = 2;
+}
+
+message RegReadRes
+{
+	int32 Result = 1;
+	string value = 2;
+}

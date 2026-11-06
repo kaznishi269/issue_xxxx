@@ -1,0 +1,59 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Yaskawa.ControllerEngineeringService.AiChat.V1";
+package Yaskawa.ControllerEngineeringService.AiChat.V1;
+
+//
+// AIチャットサービスRPC
+//
+service AiChatGrpcService
+{
+	// エンジニアリング開始
+	rpc StartEngineering(StartEngineeringReq)
+		returns(StartEngineeringRes);
+
+	// エンジニアリング終了
+	rpc EndEngineering(EndEngineeringReq)
+		returns(EndEngineeringRes);
+
+	// メッセージ送信
+	rpc SendMessage(SendMessageReq)
+		returns(SendMessageRes);
+}
+
+//
+// メッセージ定義
+//
+
+// エンジニアリング開始
+message StartEngineeringReq
+{
+	string sessionHandle = 1;		// セッションハンドル
+}
+message StartEngineeringRes
+{
+	string engineeringHandle = 1;	//エンジニアリングハンドル
+}
+
+// エンジニアリング終了
+message EndEngineeringReq
+{
+	string engineeringHandle = 1;	//エンジニアリングハンドル
+}
+message EndEngineeringRes
+{
+}
+
+// メッセージ送信
+message SendMessageReq
+{
+	string engineeringHandle = 1;	// エンジニアリングハンドル
+	string chatId = 2;				// チャットID
+	string message = 3;				// メッセージ
+}
+
+message SendMessageRes
+{
+	string chatId = 2;			// チャットID
+	string message = 3;			// メッセージ
+}

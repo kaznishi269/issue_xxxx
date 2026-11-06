@@ -1,0 +1,42 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Yaskawa.ControllerEngineeringService.Common";
+package Yaskawa.ControllerEngineeringService.Common;
+
+//
+//エラーコード定義
+//
+enum ErrorCode
+{
+	normal = 0;		//正常
+
+	//0x1001～0x1fff:各サービス共通のエラーコード
+	ErrorCategory_Common = 0x1000;
+	SessionHandleEmpty = 0x1001;					//セッションハンドルが指定されていない
+	SessionHandleNotFound = 0x1002;					//セッションハンドルが存在しない
+	CimScopeException = 0x1003;						//CimScope例外
+	EngineeringHandleEmpty = 0x1004;				//エンジニアリングハンドルが指定されていない
+	EngineeringNotRegistered = 0x1005;				//エンジニアリング登録されていない
+	LegacyProgramNotFound = 0x1006;					//従来プログラマのプロセスが確認できない
+	UnsupportedResponseVersion = 0x1007;			//従来プログラマから返却されたレスポンスヘッダのバージョンはサポートされていない
+	LegacyProgramPipeCommunicationFailed = 0x1008;	//従来プログラマとのパイプ通信が失敗した
+	LegacyProgramCommandExecutionFailed = 0x1009;	//従来プログラマからコマンド実行でエラーが発生した
+	SystemError = 0x1fff;							//システムエラー
+
+	//0x2001～0x2fff:サーバーサービス固有のエラーコード
+	ErrorCategory_ServerService = 0x2000;
+
+	//0x3001～0x3fffクライアントサービス固有のエラーコード
+	ErrorCategory_ClientService = 0x3000;
+
+	//0x4001～0x4fff:ネイティブエンジニアリングサービス固有のエラーコード
+	ErrorCategory_NativeEngineeringService = 0x4000;
+	InvalidConnectionInfo = 0x4001;		//接続情報が不正（不正内容はメタデータで返却）
+	PortOpenFailed = 0x4002;			//ポートオープン失敗
+	PortCloseFailed=0x4003;				//ポートクローズ失敗
+
+	//0x5001～0x5fff:STプログラミングサービス固有のエラーコード
+	ErrorCategory_StProgrammingService = 0x5000;
+	InvalidProgramName = 0x5001;		//プログラム名不正
+}
+

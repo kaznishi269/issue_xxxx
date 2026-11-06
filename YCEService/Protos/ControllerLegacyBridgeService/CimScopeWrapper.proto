@@ -1,0 +1,159 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Yaskawa.ControllerLegacyBridgeService.CimScopeWrapper.V1";
+package Yaskawa.ControllerLegacyBridgeService.CimScopeWrapper.V1;
+
+//エラー定義
+enum CimScopeWrapperErrorCode
+{
+	NoError = 0;						//正常
+	ComponentHandleNotRegistered = 1;	//コンポーネントハンドルが登録されていない
+	MotionFactoryNotFound = 2;			//モーションファクトリが取得できない
+	InvalidProgramName = 3;				//プログラム名称の誤り
+	CimScopeException = 4;				//CimScopeの例外
+	ComInstanceCreateFailed = 5;		//COMのインスタンス生成に失敗
+}
+
+//
+//CimScopeラッパーサービスRPC
+//
+service CimScopeWrapperGrpcService
+{
+	//コンポーネントオープン
+	rpc OpenComponent(OpenComponentReq)
+		returns(OpenComponentRes);
+
+	//コンポーネントクローズ
+	rpc CloseComponent(CloseComponentReq)
+		returns(CloseComponentRes);
+
+	//YcsLadderProgCOMのラッパーメソッド
+	//ラダープログラムオープン
+	rpc LadderProgOpen(LadderProgOpenReq)
+		returns(LadderProgOpenRes);
+
+	//ラダープログラムクローズ
+	rpc LadderProgClose(LadderProgCloseReq)
+		returns(LadderProgCloseRes);
+
+	//ラダープログラムパケットの読み込み
+	rpc LadderProgReadProgramDataPacket(LadderProgReadProgramDataPacketReq)
+		returns(LadderProgReadProgramDataPacketRes);
+
+	//ラダープログラムパケットの書き込み
+	rpc LadderProgWriteProgramDataPacket(LadderProgWriteProgramDataPacketReq)
+		returns(LadderProgWriteProgramDataPacketRes);
+
+	//ラダープログラムの保存
+	rpc LadderProgSave(LadderProgSaveReq)
+		returns(LadderProgSaveRes);
+
+	//検証のために実装。
+	//ラダープログラムプロパティ取得（とりあえず、プログラム名称のみ）
+	rpc LadderProgGetProperty(LadderProgGetPropertyReq)
+		returns(LadderProgGetPropertyRes);
+}
+
+//
+//メッセージ定義
+//
+
+//コンポーネントオープン
+message OpenComponentReq
+{
+	bool isOnline = 1;			//オンライン情報 true=オンライン false=オフライン
+	int32 motionFactoryId = 2;	//モーションファクトリID
+}
+message OpenComponentRes
+{
+	CimScopeWrapperErrorCode result = 1;	//実行結果 0=正常 以外=異常
+	int32 CimScopeExceptionResult = 2;		//CimScope例外時のエラーコード
+	string componentHandle = 3;	//コンポーネントハンドル
+}
+
+//コンポーネントクローズ
+message CloseComponentReq
+{
+	string componentHandle = 1;	//コンポーネントハンドル
+}
+message CloseComponentRes
+{
+	CimScopeWrapperErrorCode result = 1;	//実行結果　0=正常 以外=異常
+	int32 CimScopeExceptionResult = 2;		//CimScope例外時のエラーコード
+}
+
+//YcsLadderProgCOMのラッパーメソッド
+//ラダープログラムのオープン
+message LadderProgOpenReq
+{
+	string componentHandle = 1;	//コンポーネントハンドル
+	string PrgFile = 2;			//プログラム名
+}
+message LadderProgOpenRes
+{
+	CimScopeWrapperErrorCode Result = 1;	//実行結果　0=正常 以外=異常
+	int32 CimScopeExceptionResult = 2;		//CimScope例外時のエラーコード
+}
+
+//ラダープログラムのクローズ
+message LadderProgCloseReq
+{
+	string componentHandle = 1;	//コンポーネントハンドル
+}
+message LadderProgCloseRes
+{
+	CimScopeWrapperErrorCode Result = 1;	//実行結果　0=正常 以外=異常
+	int32 CimScopeExceptionResult = 2;		//CimScope例外時のエラーコード
+}
+
+//ラダープログラムパケットの読み込み
+message LadderProgReadProgramDataPacketReq
+{
+	string componentHandle = 1;	//コンポーネントハンドル
+	int32 packetId = 2;			//パケットID
+	int32 packetNumber = 3;		//パケット番号
+}
+message LadderProgReadProgramDataPacketRes
+{
+	CimScopeWrapperErrorCode result = 1;	//実行結果 0=正常 以外=異常
+	int32 CimScopeExceptionResult = 2;		//CimScope例外時のエラーコード
+	bytes data = 3;				//パケットデータ
+}
+
+//ラダープログラムパケットの書き込み
+message LadderProgWriteProgramDataPacketReq
+{
+	string componentHandle = 1;	//コンポーネントハンドル
+	bytes data = 2;				//パケットデータ
+}
+message LadderProgWriteProgramDataPacketRes
+{
+	CimScopeWrapperErrorCode result = 1;	//実行結果 0=正常 以外=異常
+	int32 CimScopeExceptionResult = 2;		//CimScope例外時のエラーコード
+}
+
+//ラダープログラムの保存
+message LadderProgSaveReq
+{
+	string componentHandle = 1;	//コンポーネントハンドル
+
+}
+message LadderProgSaveRes
+{
+	CimScopeWrapperErrorCode result = 1;	//実行結果 0=正常 以外=異常
+	int32 CimScopeExceptionResult = 2;		//CimScope例外時のエラーコード
+}
+
+
+//以降、検証の為に実装
+//ラダープログラムプロパティ取得
+message LadderProgGetPropertyReq
+{
+	string componentHandle = 1;	//コンポーネントハンドル
+}
+message LadderProgGetPropertyRes
+{
+	CimScopeWrapperErrorCode Result = 1;			//実行結果　0=正常 以外=異常
+	int32 CimScopeExceptionResult = 2;	//CimScope例外時のエラーコード
+	string programComment = 3;	//プログラムコメント
+}

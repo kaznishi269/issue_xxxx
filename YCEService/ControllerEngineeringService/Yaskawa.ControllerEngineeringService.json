@@ -1,0 +1,18 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "AppSettings": {
+    "ToolName": "MPE720"
+  },
+  "ServerOptions": {
+    "HealthCheckInterval": 60,
+    "SelfShutdown": true,
+    "Port": 0,
+    "LogLevel": "Info"
+  }
+}

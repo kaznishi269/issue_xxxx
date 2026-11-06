@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>Yaskawa.$(MSBuildProjectName)</AssemblyName>
+    <OutputPath>..\..\bin\$(Configuration)\ControllerEngineering</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
+   <!-- protoファイルのフォルダを指定する-->
+  <ItemGroup>
+    <Protobuf Include="..\Protos\ControllerEngineeringService\*.proto" Link="Protos\%(RecursiveDir)%(Filename)%(Extension)" GrpcServices="Server" />
+    <Protobuf Include="..\Protos\ControllerLegacyBridgeService\*.proto" Link="ProtosLegacy\%(RecursiveDir)%(Filename)%(Extension)" GrpcServices="Client" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" />
+    <PackageReference Include="Grpc.AspNetCore" />
+    <PackageReference Include="Grpc.Net.Client" />
+    <PackageReference Include="Grpc.Tools">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,70 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Yaskawa.ControllerLegacyBridgeService.CmifWrapper.V1";
+package Yaskawa.ControllerLegacyBridgeService.CmifWrapper.V1;
+
+//エラー定義
+enum CmifWrapperErrorCode
+{
+	NoError = 0;						//正常
+	ComponentHandleNotRegistered = 1;	//コンポーネントハンドルが登録されていない
+	MotionFactoryNotFound = 2;			//モーションファクトリが取得できない
+	InvalidRegister = 3;				//レジスタが不正
+}
+
+//
+//CMIFラッパーサービスRPC
+//
+service CmifWrapperGrpcService
+{
+	//コンポーネントオープン
+	rpc OpenComponent(OpenComponentReq)
+		returns(OpenComponentRes);
+
+	//コンポーネントクローズ
+	rpc CloseComponent(CloseComponentReq)
+		returns(CloseComponentRes);
+
+	//レジスタ読み込み（とりあえず１レジスタ)
+	rpc RegRead(RegReadReq)
+		returns(RegReadRes);
+}
+
+//
+//メッセージ定義
+//
+
+//コンポーネントオープン
+message OpenComponentReq
+{
+	bool isOnline = 1;
+	int32 portNo = 2;
+	string ipAddress = 3;
+}
+message OpenComponentRes
+{
+	CmifWrapperErrorCode result = 1;
+	string componentHandle = 2;
+}
+
+//コンポーネントクローズ
+message CloseComponentReq
+{
+	string componentHandle = 1;
+}
+message CloseComponentRes
+{
+	CmifWrapperErrorCode result = 1;
+}
+
+message RegReadReq
+{
+	string componentHandle = 1;
+	string registar = 2;
+}
+
+message RegReadRes
+{
+	CmifWrapperErrorCode result = 1;
+	string value = 2;
+}

@@ -1,0 +1,39 @@
+﻿syntax = "proto3";
+option csharp_namespace = "Yaskawa.ControllerEngineeringService.Server.V1";
+package Yaskawa.ControllerEngineeringService.Server.V1;
+
+//
+//サーバーサービスrpc
+//
+service ServerGrpcService
+{
+	//バージョン情報取得
+	rpc GetVersion(GetVersonReq)
+		returns(GetVersionRes);
+
+	//インフォメーションの取得
+	rpc GetInformation(GetInformationReq)
+		returns(GetInformationRes);
+}
+
+//
+//メッセージ定義
+//
+
+//バージョン情報取得
+message	GetVersonReq
+{
+}
+message GetVersionRes
+{
+	string version = 1;			//バージョン情報
+}
+
+//インフォメーションの取得
+message GetInformationReq
+{
+}
+message GetInformationRes
+{
+	string information = 1;		//インフォメーション
+}

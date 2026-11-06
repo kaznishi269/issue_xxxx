@@ -1,0 +1,27 @@
+﻿<Window x:Class="ControllerEngineeringStudio.App.Views.ConfirmSaveWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ControllerEngineeringStudio.App.Views"
+        xmlns:commonRes="clr-namespace:ControllerEngineeringStudio.Common.Resources;assembly=ControllerEngineeringStudio.Common"
+        xmlns:res="clr-namespace:ControllerEngineeringStudio.App.Resources"
+        mc:Ignorable="d"
+        Title="{x:Static commonRes:CommonStrings.AppName}" WindowStartupLocation="CenterOwner" ShowInTaskbar="False" ResizeMode="CanResizeWithGrip"
+        Height="200" Width="300" MinHeight="200" MinWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="{x:Static res:Strings.ConfirmCloseMessage}" Margin="2"/>
+        <ListView Grid.Row="1" ItemsSource="{Binding FileList}" Margin="2" BorderThickness="0"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="{x:Static commonRes:CommonStrings.Save}" Command="{Binding SaveCommand}" Margin="2" Width="70"/>
+            <Button Content="{x:Static commonRes:CommonStrings.NotSave}" Command="{Binding NotSaveCommand}" Margin="2" Width="70"/>
+            <Button Content="{x:Static commonRes:CommonStrings.Cancel}" Command="{Binding CancelCommand}" Margin="2" Width="70"
+                    IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,1 @@
+call "AllBuild.bat" Debug

@@ -1,0 +1,67 @@
+﻿  syntax = "proto3";
+
+option csharp_namespace = "Yaskawa.ControllerEngineeringService.Client.V1";
+package Yaskawa.ControllerEngineeringService.Client.V1;
+
+//サーバーステータス
+enum ServerStatus
+{
+	Unknown = 0;
+	Normal = 1;								//正常
+	LegacyBridgeServiceDisconnected = 2;	//レガシーブリッジサービス異常
+}
+
+//
+//クライアントサービスRPC
+//
+service ClientGrpcService
+{
+	//クライアント追加
+	rpc AddClient(AddClientReq)
+		returns(AddClientRes);
+
+	//クライアント開放
+	rpc RemoveClient(RemoveClientReq)
+		returns(RemoveClientRes);
+
+	//クライアント生存確認
+	rpc Heartbeat(HeartbeatReq)
+		returns(HeartbeatRes);
+}
+
+//
+//メッセージ定義
+//
+
+//クライアント追加
+message AddClientReq
+{
+	int32 legacyProgrammerProcessId = 1;	//従来プログラマのプロセスID
+}
+
+message AddClientRes
+{
+	string sessionHandle = 1;		//セッションハンドル
+	int32 healthCheckInterval = 2;	//ヘルスチェック周期(s)
+}
+
+//クライアント解放
+message RemoveClientReq
+{
+	string sessionHandle = 1;		//セッションハンドル
+}
+
+message RemoveClientRes
+{
+}
+
+//クライアント生存確認
+message HeartbeatReq
+{
+	string sessionHandle = 1;	//セッションハンドル
+}
+
+message HeartbeatRes
+{
+	ServerStatus serverStatus = 1;	//サーバーステータス
+}

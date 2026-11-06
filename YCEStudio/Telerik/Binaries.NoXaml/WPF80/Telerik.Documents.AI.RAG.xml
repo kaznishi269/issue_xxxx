@@ -1,0 +1,357 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Telerik.Documents.AI.RAG</name>
+    </assembly>
+    <members>
+        <member name="T:SmartComponents.LocalEmbeddings.EmbeddingF32">
+            <summary>
+            Represents an embedded value using a <see cref="T:System.Single"/> for each dimension.
+            
+            This is the raw, unquantized output from the embedding model. For the default 384-dimensional
+            embedding model, each embedded value takes 1536 bytes.
+            </summary>
+        </member>
+        <member name="P:SmartComponents.LocalEmbeddings.EmbeddingF32.Buffer">
+            <summary>
+            Gets the buffer holding the embedded value's data.
+            </summary>
+        </member>
+        <member name="P:SmartComponents.LocalEmbeddings.EmbeddingF32.Values">
+            <summary>
+            Gets the numerical components of the embedding vector.
+            </summary>
+        </member>
+        <member name="M:SmartComponents.LocalEmbeddings.EmbeddingF32.#ctor(System.ReadOnlyMemory{System.Byte})">
+            <summary>
+            Constructs an instance of <see cref="T:SmartComponents.LocalEmbeddings.EmbeddingF32"/> using existing data. This can be
+            data previously supplied by <see cref="P:SmartComponents.LocalEmbeddings.EmbeddingF32.Buffer"/>.
+            </summary>
+            <param name="buffer">A buffer holding existing <see cref="T:SmartComponents.LocalEmbeddings.EmbeddingF32"/> data.</param>
+        </member>
+        <member name="M:SmartComponents.LocalEmbeddings.EmbeddingF32.FromModelOutput(System.ReadOnlySpan{System.Single},System.Memory{System.Byte})">
+            <inheritdoc />
+        </member>
+        <member name="M:SmartComponents.LocalEmbeddings.EmbeddingF32.Similarity(SmartComponents.LocalEmbeddings.EmbeddingF32)">
+            <summary>
+            Computes the similarity between this embedding and another. For <see cref="T:SmartComponents.LocalEmbeddings.EmbeddingF32"/>,
+            this uses cosine similarity.
+            </summary>
+            <param name="other">The other embedding.</param>
+            <returns>A similarity score, approximately in the range 0 to 1. Higher values indicate higher similarity.</returns>
+        </member>
+        <member name="M:SmartComponents.LocalEmbeddings.EmbeddingF32.GetBufferByteLength(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="T:SmartComponents.LocalEmbeddings.EmbeddingI1">
+             <summary>
+             Represents an embedded value using a single bit for each dimension.
+            
+             For the default 384-dimensional embedding model, this representation takes 48 bytes per embedding,
+             since 8 dimensions are packed into each byte.
+             
+             This representation is equivalent to the LSH (Locality Sensitive Hashing) index option in Faiss.
+             It is very fast and compact, at the cost of some precision.
+             </summary>
+        </member>
+        <member name="P:SmartComponents.LocalEmbeddings.EmbeddingI1.Buffer">
+            <summary>
+            Gets the buffer holding the embedded value's data.
+            </summary>
+        </member>
+        <member name="M:SmartComponents.LocalEmbeddings.EmbeddingI1.#ctor(System.ReadOnlyMemory{System.Byte})">
+            <summary>
+            Constructs an instance of <see cref="T:SmartComponents.LocalEmbeddings.EmbeddingI1"/> using existing data. This can be
+            data previously supplied by <see cref="P:SmartComponents.LocalEmbeddings.EmbeddingI1.Buffer"/>.
+            </summary>
+            <param name="buffer">A buffer holding existing <see cref="T:SmartComponents.LocalEmbeddings.EmbeddingI1"/> data.</param>
+        </member>
+        <member name="M:SmartComponents.LocalEmbeddings.EmbeddingI1.FromModelOutput(System.ReadOnlySpan{System.Single},System.Memory{System.Byte})">
+            <inheritdoc />
+        </member>
+        <member name="M:SmartComponents.LocalEmbeddings.EmbeddingI1.Similarity(SmartComponents.LocalEmbeddings.EmbeddingI1)">
+            <summary>
+            Computes the similarity between this embedding and another. For <see cref="T:SmartComponents.LocalEmbeddings.EmbeddingI1"/>,
+            this is based on Hamming distance.
+            </summary>
+            <param name="other">The other embedding.</param>
+            <returns>A similarity score in the range 0 to 1. Higher values indicate higher similarity.</returns>
+        </member>
+        <member name="M:SmartComponents.LocalEmbeddings.EmbeddingI1.GetBufferByteLength(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="T:SmartComponents.LocalEmbeddings.EmbeddingI8">
+            <summary>
+            Represents an embedded value using a <see cref="T:System.Byte"/> for each dimension, plus an extra
+            4 bytes to hold a scale factor.
+            
+            For the default 384-dimensional embedding model, this representation takes 388 bytes per embedding.
+            </summary>
+        </member>
+        <member name="P:SmartComponents.LocalEmbeddings.EmbeddingI8.Buffer">
+            <summary>
+            Gets the buffer holding the embedded value's data.
+            </summary>
+        </member>
+        <member name="P:SmartComponents.LocalEmbeddings.EmbeddingI8.Values">
+            <summary>
+            Gets the numerical components of the embedding vector.
+            </summary>
+        </member>
+        <member name="P:SmartComponents.LocalEmbeddings.EmbeddingI8.Magnitude">
+            <summary>
+            Gets the magnitude of the embedding vector.
+            </summary>
+        </member>
+        <member name="M:SmartComponents.LocalEmbeddings.EmbeddingI8.#ctor(System.ReadOnlyMemory{System.Byte})">
+            <summary>
+            Constructs an instance of <see cref="T:SmartComponents.LocalEmbeddings.EmbeddingI8"/> using existing data. This can be
+            data previously supplied by <see cref="P:SmartComponents.LocalEmbeddings.EmbeddingI8.Buffer"/>.
+            </summary>
+            <param name="buffer">A buffer holding existing <see cref="T:SmartComponents.LocalEmbeddings.EmbeddingI8"/> data.</param>
+        </member>
+        <member name="M:SmartComponents.LocalEmbeddings.EmbeddingI8.FromModelOutput(System.ReadOnlySpan{System.Single},System.Memory{System.Byte})">
+            <inheritdoc />
+        </member>
+        <member name="M:SmartComponents.LocalEmbeddings.EmbeddingI8.Similarity(SmartComponents.LocalEmbeddings.EmbeddingI8)">
+            <summary>
+            Computes the similarity between this embedding and another. For <see cref="T:SmartComponents.LocalEmbeddings.EmbeddingI8"/>,
+            this uses cosine similarity.
+            </summary>
+            <param name="other">The other embedding.</param>
+            <returns>A similarity score, approximately in the range 0 to 1. Higher values indicate higher similarity.</returns>
+        </member>
+        <member name="M:SmartComponents.LocalEmbeddings.EmbeddingI8.GetBufferByteLength(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="T:SmartComponents.LocalEmbeddings.IEmbedding`1">
+            <summary>
+            Implements a representation for an embedded value.
+            </summary>
+        </member>
+        <member name="M:SmartComponents.LocalEmbeddings.IEmbedding`1.GetBufferByteLength(System.Int32)">
+            <summary>
+            Gives the byte length of the buffer required to store a <typeparamref name="TEmbedding"/> with the given number of dimensions.
+            </summary>
+            <param name="dimensions">The number of dimensions.</param>
+            <returns>The byte length of the buffer required to store the embedding as a <typeparamref name="TEmbedding"/>.</returns>
+        </member>
+        <member name="M:SmartComponents.LocalEmbeddings.IEmbedding`1.FromModelOutput(System.ReadOnlySpan{System.Single},System.Memory{System.Byte})">
+            <summary>
+            Converts an embedding model's raw output into a <typeparamref name="TEmbedding"/>.
+            </summary>
+            <param name="input">The raw output from the embedding model.</param>
+            <param name="buffer">A buffer used to store the <typeparamref name="TEmbedding"/>'s data. Its length must match the output from <see cref="M:SmartComponents.LocalEmbeddings.IEmbedding`1.GetBufferByteLength(System.Int32)"/>.</param>
+            <returns>The embedded value in the <typeparamref name="TEmbedding"/> representation.</returns>
+        </member>
+        <member name="M:SmartComponents.LocalEmbeddings.IEmbedding`1.Similarity(`0)">
+            <summary>
+            Computes the similarity between this embedding and another. The similarity metric
+            is determined by the embedding type.
+            </summary>
+            <param name="other">The other embedding.</param>
+            <returns>A similarity score, approximately in the range 0 to 1. Higher values indicate higher similarity.</returns>
+        </member>
+        <member name="M:SmartComponents.LocalEmbeddings.LocalEmbedder.FindClosest``2(SmartComponents.Inference.SimilarityQuery,System.Collections.Generic.IEnumerable{System.ValueTuple{``0,``1}})">
+            <summary>
+            Finds the closest <paramref name="maxResults"/> candidates to <paramref name="target"/>.
+            </summary>
+            <typeparam name="TItem">The type of the items being searched</typeparam>
+            <typeparam name="TEmbedding">The type of the embeddings</typeparam>
+            <param name="query">Specifies the .</param>
+            <param name="candidates">The set of possible results.</param>
+            <param name="maxResults">Specifies an upper limit on the number of results. If no limit is required, pass <see cref="F:System.Int32.MaxValue"/>.</param>
+            <param name="minSimilarity">Specifies a lower limit on the similarity ranking for matching results.</param>
+            <returns>An ordered array of <typeparamref name="TItem"/> values, starting from the most similar.</returns>
+        </member>
+        <member name="M:SmartComponents.LocalEmbeddings.LocalEmbedder.FindClosestWithScore``2(SmartComponents.Inference.SimilarityQuery,System.Collections.Generic.IEnumerable{System.ValueTuple{``0,``1}})">
+            <summary>
+            Finds the closest <paramref name="maxResults"/> candidates to <paramref name="target"/>,
+            returning both the similarity score and the corresponding value.
+            </summary>
+            <typeparam name="TItem">The type of the items being searched</typeparam>
+            <typeparam name="TEmbedding">The type of the embeddings</typeparam>
+            <param name="text">The text to be searched for.</param>
+            <param name="candidates">The set of possible results.</param>
+            <param name="maxResults">Specifies an upper limit on the number of results. If no limit is required, pass <see cref="F:System.Int32.MaxValue"/>.</param>
+            <param name="minSimilarity">Specifies a lower limit on the similarity ranking for matching results.</param>
+            <returns>An ordered array of <see cref="T:Telerik.Documents.AI.Core.SimilarityScore`1"/> values that specify the similarity along with the corresponding <typeparamref name="TItem"/> value.</returns>
+        </member>
+        <member name="M:SmartComponents.LocalEmbeddings.LocalEmbedder.FindClosest``2(``1,System.Collections.Generic.IEnumerable{System.ValueTuple{``0,``1}},System.Int32,System.Nullable{System.Single})">
+            <summary>
+            Finds the closest <paramref name="maxResults"/> candidates to <paramref name="target"/>.
+            </summary>
+            <typeparam name="TItem">The type of the items being searched</typeparam>
+            <typeparam name="TEmbedding">The type of the embeddings</typeparam>
+            <param name="target">An embedding representing the value to be searched for.</param>
+            <param name="candidates">The set of possible results.</param>
+            <param name="maxResults">Specifies an upper limit on the number of results. If no limit is required, pass <see cref="F:System.Int32.MaxValue"/>.</param>
+            <param name="minSimilarity">Specifies a lower limit on the similarity ranking for matching results.</param>
+            <returns>An ordered array of <typeparamref name="TItem"/> values, starting from the most similar.</returns>
+        </member>
+        <member name="M:SmartComponents.LocalEmbeddings.LocalEmbedder.FindClosestWithScore``2(``1,System.Collections.Generic.IEnumerable{System.ValueTuple{``0,``1}},System.Int32,System.Nullable{System.Single})">
+            <summary>
+            Finds the closest <paramref name="maxResults"/> candidates to <paramref name="target"/>,
+            returning both the similarity score and the corresponding value.
+            </summary>
+            <typeparam name="TItem">The type of the items being searched</typeparam>
+            <typeparam name="TEmbedding">The type of the embeddings</typeparam>
+            <param name="target">An embedding representing the value to be searched for.</param>
+            <param name="candidates">The set of possible results.</param>
+            <param name="maxResults">Specifies an upper limit on the number of results. If no limit is required, pass <see cref="F:System.Int32.MaxValue"/>.</param>
+            <param name="minSimilarity">Specifies a lower limit on the similarity ranking for matching results.</param>
+            <returns>An ordered array of <see cref="T:Telerik.Documents.AI.Core.SimilarityScore`1"/> values that specify the similarity along with the corresponding <typeparamref name="TItem"/> value.</returns>
+        </member>
+        <member name="T:Telerik.Documents.AI.RAG.DefaultEmbedder">
+            <summary>
+            Provides a default implementation of the IEmbedder interface that generates embeddings for text fragments using
+            a local embedding engine.
+            </summary>
+            <remarks>This class is intended for scenarios where embeddings are required for a collection of text
+            fragments. It uses a local embedding engine internally and is suitable for applications that do not require
+            remote or distributed embedding services.</remarks>
+        </member>
+        <member name="M:Telerik.Documents.AI.RAG.DefaultEmbedder.EmbedAsync(System.Collections.Generic.IList{Telerik.Documents.AI.Core.IFragment})">
+            <summary>
+            Generates embeddings for a collection of text fragments asynchronously.
+            </summary>
+            <param name="fragments">The list of text fragments to embed. Cannot be null.</param>
+            <returns>A task that represents the asynchronous operation. The task result contains an array of embeddings
+            corresponding to each input fragment, in the same order.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="fragments"/> is null.</exception>
+        </member>
+        <member name="T:Telerik.Documents.AI.RAG.DefaultContextFragmentsManager">
+            <summary>
+            Default implementation of <see cref="T:Telerik.Documents.AI.Core.IContextFragmentsManager"/> that splits text into
+            token sized fragments respecting a maximum token limit per fragment.
+            </summary>
+        </member>
+        <member name="M:Telerik.Documents.AI.RAG.DefaultContextFragmentsManager.SplitIntoFragments(System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="T:Telerik.Documents.AI.RAG.DefaultContextRetriever">
+            <summary>
+            Provides a default implementation for retrieving relevant context fragments based on semantic similarity to a
+            given question.
+            </summary>
+        </member>
+        <member name="P:Telerik.Documents.AI.RAG.DefaultContextRetriever.ContextFragmentsManager">
+            <summary>
+            Gets the manager responsible for handling context fragments within the current instance.
+            </summary>
+        </member>
+        <member name="M:Telerik.Documents.AI.RAG.DefaultContextRetriever.#ctor(Telerik.Documents.AI.Core.IContextFragmentsManager,Telerik.Documents.AI.Core.IEmbedder,Telerik.Documents.AI.Core.ISimilarityCalculator,Telerik.Documents.AI.Core.ITokensCounter,Telerik.Documents.AI.Core.IEmbeddingSettings)">
+            <summary>
+            Initializes a new instance of the DefaultContextRetriever class with the specified context fragments
+            manager, embedder, similarity calculator, tokens counter, and embedding settings.
+            </summary>
+            <param name="contextFragmentsManager">The manager responsible for handling context fragments used in retrieval operations. Cannot be null.</param>
+            <param name="embedder">The component used to generate embeddings for context fragments. Cannot be null.</param>
+            <param name="similarityCalculator">The calculator used to determine similarity between embeddings. Cannot be null.</param>
+            <param name="tokensCounter">The service used to count tokens in context fragments and embeddings. Cannot be null.</param>
+            <param name="settings">The settings that configure embedding parameters, such as the maximum number of embeddings, embedding token
+            size, and model input token limit. Cannot be null.</param>
+        </member>
+        <member name="M:Telerik.Documents.AI.RAG.DefaultContextRetriever.GetContextAsync(System.String)">
+            <summary>
+            Gets the text representation of the relevant embeddings for the provided question.
+            </summary>
+            <param name="text">The question text to find relevant context for. Cannot be null.</param>
+            <returns>The text representation of the relevant embeddings.</returns>
+        </member>
+        <member name="M:Telerik.Documents.AI.RAG.DefaultContextRetriever.SetContextAsync(System.String,System.Int32)">
+            <summary>
+            Asynchronously splits the specified text into fragments based on the provided embedding token size.
+            </summary>
+            <param name="text">The text to be divided into fragments. Cannot be null.</param>
+            <param name="embeddingTokenSize">The maximum number of tokens allowed in each fragment. Must be a positive integer.</param>
+            <returns>A task that represents the asynchronous operation of fragmenting the text.</returns>
+        </member>
+        <member name="T:Telerik.Documents.AI.RAG.DefaultFragments">
+            <summary>
+            Provides a default implementation of the <see cref="T:Telerik.Documents.AI.Core.IFragments"/> interface that stores a collection of
+            fragments.
+            </summary>
+        </member>
+        <member name="M:Telerik.Documents.AI.RAG.DefaultFragments.#ctor(Telerik.Documents.AI.Core.IFragment[])">
+            <summary>
+            Initializes a new instance of the DefaultFragments class with the specified fragments.
+            </summary>
+            <param name="strings">An array of fragments to be used. Cannot be null.</param>
+        </member>
+        <member name="P:Telerik.Documents.AI.RAG.DefaultFragments.Fragments">
+            <summary>
+            Gets the collection of fragments that compose the complete content.
+            </summary>
+        </member>
+        <member name="T:Telerik.Documents.AI.RAG.DefaultSimilarityCalculator">
+            <summary>
+            Provides a default implementation of the ISimilarityCalculator interface for finding the most similar text
+            fragments to a given question using embeddings.
+            </summary>
+            <remarks>This class uses an IEmbedder to generate embeddings for input text and compares them to
+            provided fragments to determine similarity.</remarks>
+        </member>
+        <member name="M:Telerik.Documents.AI.RAG.DefaultSimilarityCalculator.#ctor(Telerik.Documents.AI.Core.IEmbedder)">
+            <summary>
+            Initializes a new instance of the DefaultSimilarityCalculator class using the specified embedder.
+            </summary>
+            <param name="embedder">The embedder used to generate vector representations for similarity calculations. Cannot be null.</param>
+        </member>
+        <member name="M:Telerik.Documents.AI.RAG.DefaultSimilarityCalculator.CalculateScores(System.String,System.Collections.Generic.IList{Telerik.Documents.AI.Core.Embedding})">
+            <summary>
+            Finds the most similar text fragments to the specified question and returns their similarity scores.
+            </summary>
+            <remarks>The method uses the current embedding model to compute similarity between the
+            question and each fragment. If the specified limit exceeds the number of fragments, all fragments are
+            considered. The results are ordered by descending similarity score.</remarks>
+            <param name="prompt">The input question to compare against the provided fragments. Cannot be null, empty, or whitespace.</param>
+            <param name="embeddings">An array of embeddings representing the text fragments to search. Cannot be null or empty.</param>
+            <returns>An array of similarity scores, each containing a fragment and its similarity to the question. Returns an empty array on error conditions.</returns>
+        </member>
+        <member name="T:Telerik.Documents.AI.RAG.DefaultTokensCounter">
+            <summary>
+            Provides functionality to count tokens in a given input, such as words or other units of text.
+            </summary>
+            <remarks>This class implements the <see cref="T:Telerik.Documents.AI.Core.ITokensCounter"/> interface, allowing for token counting
+            operations. The specific behavior and definition of a "token" depend on the implementation of the
+            interface.</remarks>
+        </member>
+        <member name="M:Telerik.Documents.AI.RAG.DefaultTokensCounter.#ctor(Telerik.Documents.AI.Core.IEmbeddingSettings)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Telerik.Documents.AI.RAG.DefaultTokensCounter"/> class with the specified embedding settings.
+            </summary>
+            <remarks>The <paramref name="settings"/> parameter is used to configure the tokenizer encoding
+            based on the specified model ID and tokenization encoding. Ensure that the <see cref="T:Telerik.Documents.AI.Core.IEmbeddingSettings"/>
+            object is properly configured before passing it to this constructor.</remarks>
+            <param name="settings">The embedding settings that define the model ID and tokenization encoding to be used.</param>
+        </member>
+        <member name="M:Telerik.Documents.AI.RAG.DefaultTokensCounter.Count(System.String)">
+            <summary>
+            Counts the number of tokens in the specified input string.
+            </summary>
+            <param name="input">The input string to analyze. Cannot be null.</param>
+            <returns>The total number of tokens found in the input string.</returns>
+        </member>
+        <member name="T:Telerik.Documents.AI.RAG.EmbeddingSimilarityHelper">
+            <summary>
+            Provides helper methods for calculating similarity scores between an already embedded question vector
+            and a collection of fragment <see cref="T:Telerik.Documents.AI.Core.Embedding"/> instances.
+            </summary>
+            <remarks>
+            This helper is intentionally static and independent from any concrete <see cref="T:Telerik.Documents.AI.Core.IEmbedder"/> implementation
+            so that external components (e.g. test applications using different embedding providers such as Ollama)
+            can reuse the core similarity computation logic without duplicating code.
+            </remarks>
+        </member>
+        <member name="M:Telerik.Documents.AI.RAG.EmbeddingSimilarityHelper.FindClosestWithScore(System.Single[],System.Collections.Generic.IList{Telerik.Documents.AI.Core.Embedding})">
+            <summary>
+            Calculates cosine-similarity scores between a question embedding vector and fragment embeddings,
+            returning the top results ordered descending by similarity.
+            </summary>
+            <param name="questionVector">The embedding vector of the question.</param>
+            <param name="embeddings">The fragment embeddings to compare against.</param>
+            <returns>Array of <see cref="T:Telerik.Documents.AI.Core.SimilarityScore`1"/> where T is IFragment.</returns>
+        </member>
+    </members>
+</doc>
